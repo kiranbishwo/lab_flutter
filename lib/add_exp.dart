@@ -40,7 +40,10 @@ class _SecondPageState extends State<SecondPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Your Expenses'),
+        title: const Text(
+          'Add Your Expenses',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Container(
         margin: EdgeInsets.all(15),

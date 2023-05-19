@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lab_project/exp_list.dart';
 
 class SideBar extends StatelessWidget {
   @override
@@ -62,7 +63,26 @@ class SideBar extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.monetization_on),
               title: Text("Expenses Trakker"),
-              onTap: () => print("hello"),
+              onTap: () {
+                // Handle logout tap
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        const MyHomePage(title: 'List Of Expenses'),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.data_object),
+              title: Text("Local Storage"),
+              onTap: () => null,
+            ),
+            ListTile(
+              leading: Icon(Icons.fireplace),
+              title: Text("Firebase Storage"),
+              onTap: () => null,
             ),
             ListTile(
               leading: Icon(Icons.sms),
