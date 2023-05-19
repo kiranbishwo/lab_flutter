@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:lab_project/sidebar.dart';
 import 'add_exp.dart';
 
 void main() {
@@ -54,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: SideBar(),
         appBar: AppBar(
           title: Text(widget.title),
           actions: [
