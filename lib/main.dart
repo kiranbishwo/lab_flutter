@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:lab_project/sidebar.dart';
 import 'add_exp.dart';
 import 'exp_list.dart';
 import 'home.dart';
 
-void main() {
+void main() async {
+  // init hive
+  await Hive.initFlutter();
+  var box = await Hive.openBox('myBox');
   runApp(const MyApp());
 }
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import '../data/notedata.dart';
 import '../model/notedata.dart';
 import 'noteform.dart';
 
@@ -18,20 +20,37 @@ class _NotePageState extends State<NotePage> {
   String discription = '';
 
   final _noteFormKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // if this is the first time ever open the app then create default data
+    if (_mybox.get("NOTEDATA") == null) {
+      db.createInitialData();
+    } else {
+      // there already exist data
+      db.loadData();
+    }
+    super.initState();
+  }
+
   final _notecontroller = TextEditingController();
   final _subjectcontroller = TextEditingController();
-  List<Map<String, dynamic>> listOfNotes = [
-    {
-      "subject": "First Note",
-      "date": "2023-05-01",
-      "discription": "this is a note from me",
-    },
-    {
-      "subject": "Second Note",
-      "date": "2023-05-01",
-      "discription": "this is another note from me",
-    }
-  ];
+
+  // refrence of hive box
+  final _mybox = Hive.box('mybox');
+  NoteDataBase db = NoteDataBase();
+  // List<Map<String, dynamic>> listOfNotes = [
+  //   {
+  //     "subject": "First Note",
+  //     "date": "2023-05-01",
+  //     "discription": "this is a note from me",
+  //   },
+  //   {
+  //     "subject": "Second Note",
+  //     "date": "2023-05-01",
+  //     "discription": "this is another note from me",
+  //   }
+  // ];
   void saveNewNote() {
     if (_noteFormKey.currentState!.validate()) {
       setState(() {
@@ -43,8 +62,9 @@ class _NotePageState extends State<NotePage> {
           "date": formattedDate,
           "discription": _notecontroller.text,
         };
-        listOfNotes.add(newNote);
+        db.listOfNotes.add(newNote);
         Navigator.of(context).pop();
+        db.updateDatabase();
         _subjectcontroller.text = '';
         _notecontroller.text = '';
       });
@@ -85,9 +105,9 @@ class _NotePageState extends State<NotePage> {
         padding: EdgeInsets.all(10),
         child: Container(
           child: ListView.builder(
-              itemCount: listOfNotes.length,
+              itemCount: db.listOfNotes.length,
               itemBuilder: (context, index) {
-                var item = listOfNotes[index];
+                var item = db.listOfNotes[index];
                 return Card(
                   color: Colors.amber.withOpacity(0.5),
                   elevation: 4,
