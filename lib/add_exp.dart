@@ -22,18 +22,18 @@ class _SecondPageState extends State<SecondPage> {
 
   List<Map<String, dynamic>> formArray = [];
 
-  late final Function(Map<String, dynamic>) addItem;
-
   void handleSubmit() {
-    Map<String, dynamic> newItem = {
-      'date': _date.text,
-      'price': _price.text,
-      'remarks': _remarks.text,
-      'category': dropdownvalue
-    };
+    if (_myFormKey.currentState!.validate()) {
+      Map<String, dynamic> newItem = {
+        'date': _date.text,
+        'price': _price.text,
+        'remarks': _remarks.text,
+        'category': dropdownvalue
+      };
 
-    widget.addItem(newItem);
-    Navigator.pop(context);
+      widget.addItem(newItem);
+      Navigator.pop(context);
+    }
   }
 
   @override
