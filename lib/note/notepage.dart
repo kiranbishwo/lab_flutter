@@ -51,6 +51,11 @@ class _NotePageState extends State<NotePage> {
   //     "discription": "this is another note from me",
   //   }
   // ];
+  void _deleteNote(int index) {
+    db.deleteNote(index);
+    db.loadData();
+  }
+
   void saveNewNote() {
     if (_noteFormKey.currentState!.validate()) {
       setState(() {
@@ -135,6 +140,28 @@ class _NotePageState extends State<NotePage> {
                             margin: EdgeInsets.only(top: 5),
                             child: Text(item['discription']),
                           ),
+                          Text(index.toString()),
+                          SizedBox(height: 8),
+                          Container(
+                            child: Row(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () => _deleteNote(index),
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                SizedBox(width: 5),
+                                ElevatedButton(
+                                    onPressed: () {},
+                                    child: Icon(
+                                      Icons.edit,
+                                      color: Colors.white,
+                                    )),
+                              ],
+                            ),
+                          )
                         ]),
                   ),
                 );

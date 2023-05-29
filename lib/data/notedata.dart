@@ -24,4 +24,8 @@ class NoteDataBase {
   void updateDatabase() {
     _mybox.put("NOTEDATA", listOfNotes);
   }
+
+  void deleteNote(int index) {
+    _mybox.deleteAt(index);
+  }
 }
